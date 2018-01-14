@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <title>$Title$</title>
@@ -8,3 +9,119 @@
 Hello, {{"Sean"}}
 </body>
 </html>
+=======
+  <head>
+    <title>Flasked Altair</title>
+    <meta charset="utf-8">
+
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">script></script>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.30/vega.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.2/vega-lite.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.js"></script>
+
+    <script src="https://vega.github.io/datalib/datalib.min.js"></script>
+
+    <!-- Vega Tooltip -->
+    <script src="https://vega.github.io/vega-tooltip/vega-tooltip.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://vega.github.io/vega-tooltip/vega-tooltip.css">
+
+    <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
+    <style>
+    div.waterfall {
+        width: 1200px;
+        height: 300px;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+          <li><a href="https://altair-viz.github.io/index.html">Altair</a></li>
+          <li><a href="https://vega.github.io/vega-lite/">Vega-Lite</a></li>
+          <li><a href="http://d3js.org/">D3</a></li>
+          <li><a href="http://flask.pocoo.org/">Flask</a></li>
+        </ul>
+        <h3 class="text-muted">Flasked Altair</h3>
+      </div>
+
+      <div class="charts text-center">
+        <div class="row"><div id="line"></div></div><hr>
+        <!-- Placeholder for the tooltip -->
+        <div id="vis-tooltip" class="vg-tooltip"></div>
+      </div>
+    </div>
+
+    <h1>Add ETF Tickers</h1>
+    <form action="" method="post" name="etf">
+        {{ etf_form.hidden_tag() }}
+        <p>
+            {{ etf_form.etf.label }}<br>
+            {{ etf_form.etf(size=4) }}<br>
+            {% for error in etf_form.etf.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ etf_form.submit_etf() }}</p>
+        <input id="prodId" name="prodId" type="hidden" value="xm234jq">
+    </form>
+
+    <form action="" method="post" name="etf_compute">
+        {{ compute_form.hidden_tag() }}
+        <p>{{ compute_form.submit_compute() }}</p>
+    </form>
+
+
+    <table>
+    {% for etf in etfs %}
+    <tr>
+    <td class = "etf_list">{{ etf[0] }}</td>
+    <td class = "etf_percentage">{{ etf[1] }}</td>
+    <td class = "purchase_price">{{ etf[2] }}</td>
+    <td class = "current_price">{{ etf[3] }}</td>
+    <td class = "dollar_gain">{{ etf[4] }}</td>
+    <td class = "percentage_gain">{{ etf[5] }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <!-- Render Charts -->
+    <script type="text/javascript">
+      function parse(url, div) {
+        var opt = {
+          mode: "vega-lite",
+          renderer: "svg",
+          actions: {export: true, source: false, editor: false}
+        };
+        vega.embed("#"+div, url, opt, function(error, result) {
+          // result.view is the Vega View, url is the original Vega-Lite specification
+          vegaTooltip.vegaLite(result.view, url);
+        });
+      }
+      parse("/line", "line");
+    </script>
+
+    <script type="text/javascript">
+      var all = document.getElementsByClassName("etf_list");
+
+      for (var i=0, max=all.length; i < max; i++) {
+        var elem = all[i]
+        $("form[name="etf"]").append('<input name="etf'+i+'" type="hidden" value="' + elem.innerHTML + '" >')
+      }
+    </script>
+
+  </body>
+</html>
+
+>>>>>>> 9f58da5baf6ad126745ebca00d2a12c1790a676e
