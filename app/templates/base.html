@@ -53,6 +53,24 @@
       </div>
     </div>
 
+    <h1>Add ETF Tickers</h1>
+    <form action="" method="post" name="etf">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.etf.label }}<br>
+            {{ form.etf(size=4) }}<br>
+            {% for error in form.etf.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <input id="prodId" name="prodId" type="hidden" value="xm234jq">
+    </form>
+
+    {% for etf in etfs %}
+    <p class = "etf_list">{{ etf }}</p>
+    {% endfor %}
+
     <!-- Render Charts -->
     <script type="text/javascript">
       function parse(url, div) {
@@ -69,5 +87,16 @@
       parse("/line", "line");
     </script>
 
+    <script type="text/javascript">
+      var all = document.getElementsByClassName("etf_list");
+
+      for (var i=0, max=all.length; i < max; i++) {
+        var elem = all[i]
+        $("form").append('<input name="etf'+i+'" type="hidden" value="' + elem.innerHTML + '" >')
+      }
+      <!--$("form").append("<input name="etf1" type="hidden" value="xm234jq">")-->
+    </script>
+
   </body>
 </html>
+
