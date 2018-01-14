@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
+from app.forms import ETFForm
 from altair import Chart, X, Y, Axis, Data, DataFormat
 import pandas as pd
 
@@ -12,7 +13,8 @@ df_list = pd.DataFrame({'data':list_data, 'name':list_name})
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('base.html')
+    form = ETFForm()
+    return render_template('base.html', form=form)
 
 @app.route("/line")
 def data_line():
