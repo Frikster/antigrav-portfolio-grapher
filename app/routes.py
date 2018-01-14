@@ -56,10 +56,15 @@ def index():
     initial_len = len(request.form)
     print("LEN REQUEST.FORM")
     print(len(request.form))
+    etf_form = ETFForm()
+
+    if etf_form.submit_etf.data and etf_form.validate():
+            prop = 100/(1+initial_len-3)
+
     for i in range(initial_len-3):
         if request.form.get('etf'+str(i), None):
             print("REACH HERE")
-            new_etf = [request.form['etf'+str(i)], 25, 0, 0, 0, 0]
+            new_etf = [request.form['etf'+str(i)], 100/(initial_len-3), 0, 0, 0, 0]
             etfs = etfs + [new_etf]
 
     # for i in range(initial_len-3):
@@ -70,17 +75,17 @@ def index():
     #         print(new_etf)
     #         etfs.append(new_etf)
 
-    etf_form = ETFForm()
     if etf_form.submit_etf.data and etf_form.validate():
         print("etf_form VALIDATED")
-        new_etf = [request.form['etf'], 25, 0, 0, 0, 0]
+        new_etf = [request.form['etf'], 100/(1+len(etfs)), 0, 0, 0, 0]
         etfs = etfs + [new_etf]
 
         print("ETFS[0]")
         print(etfs[0])
 
         tickers = [e[0] for e in etfs]
-        proportions = [p[1] for p in etfs]
+        # proportions = [p[1] for p in etfs]
+        proportions = [100/len(tickers) for p in etfs]
 
         tickets = dict(zip(tickers, proportions))
         print(tickets)
