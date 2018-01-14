@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Flasked Altair</title>
+    <title>Portfolio Grapher by Team-Antigrav</title>
     <meta charset="utf-8">
 
 
@@ -38,12 +38,12 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active">
-          <li><a href="https://altair-viz.github.io/index.html">Altair</a></li>
-          <li><a href="https://vega.github.io/vega-lite/">Vega-Lite</a></li>
-          <li><a href="http://d3js.org/">D3</a></li>
-          <li><a href="http://flask.pocoo.org/">Flask</a></li>
+          <!--<li><a href="https://altair-viz.github.io/index.html">Altair</a></li>-->
+          <!--<li><a href="https://vega.github.io/vega-lite/">Vega-Lite</a></li>-->
+          <!--<li><a href="http://d3js.org/">D3</a></li>-->
+          <!--<li><a href="http://flask.pocoo.org/">Flask</a></li>-->
         </ul>
-        <h3 class="text-muted">Flasked Altair</h3>
+        <h3 class="text-muted">Portfolio Grapher by Team-Antigrav</h3>
       </div>
 
       <div class="charts text-center">
@@ -71,11 +71,11 @@
     {% for etf in etfs %}
     <tr>
     <td class = "etf_list">{{ etf[0] }}</td>
-    <td class = "etf_percentage">{{ etf[1] }}</td>
-    <td class = "purchase_price">{{ etf[2] }}</td>
-    <td class = "current_price">{{ etf[3] }}</td>
-    <td class = "dollar_gain">{{ etf[4] }}</td>
-    <td class = "percentage_gain">{{ etf[5] }}</td>
+    <td class = "etf_percentage"><input type="textbox" value="{{ etf[1] }}"/></td>
+    <!--<td class = "purchase_price">{{ etf[2] }}</td>-->
+    <!--<td class = "current_price">{{ etf[3] }}</td>-->
+    <!--<td class = "dollar_gain">{{ etf[4] }}</td>-->
+    <!--<td class = "percentage_gain">{{ etf[5] }}</td>-->
     </tr>
     {% endfor %}
     </table>
