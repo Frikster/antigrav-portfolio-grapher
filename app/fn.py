@@ -7,24 +7,25 @@ def fn(tickets):
     if sum(list(tickets.values())) != 100:
         return None
 
-    datas = []
-    cumulative_dividend = 0.0
+    try:
+        datas = []
+        cumulative_dividend = 0.0
 
-    ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
+        ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
 
-    for ticket in tickets:
-        (data, meta_data) = ts.get_daily_adjusted(symbol=ticket, outputsize='full')
-        cumulative_dividend += data["7. dividend amount"].sum()
-        datas.append(data.drop(columns=["6. volume", "7. dividend amount", "8. split coefficient"]) *
-                     (tickets[ticket]/100))
-        print(cumulative_dividend)
+        for ticket in tickets:
+            (data, meta_data) = ts.get_daily_adjusted(symbol=ticket, outputsize='full')
+            cumulative_dividend += data["7. dividend amount"].sum()
+            datas.append(data.drop(columns=["6. volume", "7. dividend amount", "8. split coefficient"]) *
+                         (tickets[ticket]/100))
+            print(cumulative_dividend)
 
-    data = sum(datas).dropna(axis="rows", how="any")
-    return data.to_json(orient="index")
+        data = sum(datas).dropna(axis="rows", how="any")
+        return data.to_json(orient="index")
+    except ValueError:
+        return None
 
-tickets = {'VAB':100}
-
-# tickets = {'SDIV':25, 'DIV':25, 'ECH':50}
+tickets = {'DDDD':25, 'DIV':25, 'ECH':50}
 
 print(fn(tickets))
 
