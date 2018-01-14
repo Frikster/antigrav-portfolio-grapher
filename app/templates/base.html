@@ -67,9 +67,19 @@
         <input id="prodId" name="prodId" type="hidden" value="xm234jq">
     </form>
 
+
+    <table>
     {% for etf in etfs %}
-    <p class = "etf_list">{{ etf }}</p>
+    <tr>
+    <td class = "etf_list">{{ etf[0] }}</td>
+    <td class = "etf_percentage">{{ etf[1] }}</td>
+    <td class = "purchase_price">{{ etf[2] }}</td>
+    <td class = "current_price">{{ etf[3] }}</td>
+    <td class = "dollar_gain">{{ etf[4] }}</td>
+    <td class = "percentage_gain">{{ etf[5] }}</td>
+    </tr>
     {% endfor %}
+    </table>
 
     <!-- Render Charts -->
     <script type="text/javascript">

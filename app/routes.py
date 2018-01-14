@@ -19,11 +19,12 @@ def index():
     initial_len = len(request.form)
     for i in range(initial_len-3):
         if request.form.get('etf'+str(i), None):
-            etfs = etfs + [request.form['etf'+str(i)]]
+            new_etf = [request.form['etf'+str(i)], 0, 0, 0, 0, 0]
+            etfs = etfs + [new_etf]
 
     form = ETFForm()
     if form.validate_on_submit():
-        new_etf = request.form['etf']
+        new_etf = [request.form['etf'], 0, 0, 0, 0, 0]
         etfs = etfs + [new_etf]
         # todo PROCESS NEW ETF
         return render_template('base.html', form=form, etfs=etfs) #todo: make different?
