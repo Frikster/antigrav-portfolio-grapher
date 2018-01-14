@@ -45,8 +45,6 @@ def fn(tickets):
 # fn({'SDIV':100})
 
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -58,29 +56,37 @@ def index():
             etfs = etfs + [new_etf]
 
     etf_form = ETFForm()
-    compute_form = ComputeForm()
-    if etf_form.validate_on_submit():
+    if etf_form.submit_etf.data and etf_form.validate():
+        print("etf_form VALIDATED")
         new_etf = [request.form['etf'], 0, 0, 0, 0, 0]
         etfs = etfs + [new_etf]
 
-
-    if compute_form.validate_on_submit():
+    compute_form = ComputeForm()
+    if compute_form.submit_compute.data and compute_form.validate() :
+        print("compute_form VALIDATED")
         split_even = 100 / len(etfs)
         tickets = dict(zip(etfs, [split_even] * len(etfs)))
         print("ABOUT TO COMPUTE!")
         print(tickets)
         p = fn(tickets)
         # df_list = p
-        print(df_list)
+        # print(df_list)
 
-    return render_template('base.html', form=etf_form, etfs=etfs)
+    print("HERE")
+    # print(etf_form)
+    return render_template('base.html', etf_form=etf_form,
+                           compute_form=compute_form, etfs=etfs)
 
         # return render_template('base.html', form=etf_form, etfs=etfs)  # todo: make different?
 
 @app.route("/line")
 def data_line():
     print("data_line")
-    print(df_list)
+    try:
+        print(df_list)
+    except NameError:
+        df_list = df_list_old
+
     chart = alt.Chart(data=df_list, height=HEIGHT, width=WIDTH).mark_line().encode(
         x='date:T',
         y='price:Q',

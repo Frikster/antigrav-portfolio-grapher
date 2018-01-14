@@ -5,8 +5,8 @@ from wtforms.validators import DataRequired
 
 class ETFForm(FlaskForm):
     etf = StringField('ETF Ticket', validators=[DataRequired()])
-    submit = SubmitField('Add')
+    submit_etf = SubmitField('Add')
 
 
 class ComputeForm(FlaskForm):
-    submit = SubmitField("Compute")
+    submit_compute = SubmitField("Compute")
