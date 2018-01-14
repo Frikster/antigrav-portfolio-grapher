@@ -18,6 +18,8 @@ Jinja2==2.10
 jsonschema==2.6.0
 jupyter-core==4.4.0
 MarkupSafe==1.0
+<<<<<<< HEAD
+=======
 nbformat==4.4.0
 numpy==1.14.0
 pandas==0.22.0
@@ -37,4 +39,5 @@ traitlets==4.3.2
 urllib3==1.22
 vega==0.4.4
 wcwidth==0.1.7
+>>>>>>> 9f58da5baf6ad126745ebca00d2a12c1790a676e
 Werkzeug==0.14.1
