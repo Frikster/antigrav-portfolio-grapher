@@ -14,14 +14,9 @@ df_list = pd.DataFrame({'data':list_data, 'name':list_name})
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-
-    # etfs = ["BLEH", "MEH", "HAHA"]
     etfs = []
-    # print("HERE")
     initial_len = len(request.form)
     for i in range(initial_len-3):
-        # print('etf'+str(i))
-        # print(request.form.get('etf'+str(i), None))
         if request.form.get('etf'+str(i), None):
             etfs = etfs + [request.form['etf'+str(i)]]
 
@@ -29,9 +24,8 @@ def index():
     if form.validate_on_submit():
         new_etf = request.form['etf']
         etfs = etfs + [new_etf]
-        #todo PROCESS NEW ETF
+        # todo PROCESS NEW ETF
         return render_template('base.html', form=form, etfs=etfs) #todo: make different?
-    # etfs = []
     return render_template('base.html', form=form, etfs=etfs)
 
 @app.route("/line")
