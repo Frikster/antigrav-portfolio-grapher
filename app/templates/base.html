@@ -55,16 +55,21 @@
 
     <h1>Add ETF Tickers</h1>
     <form action="" method="post" name="etf">
-        {{ form.hidden_tag() }}
+        {{ etf_form.hidden_tag() }}
         <p>
-            {{ form.etf.label }}<br>
-            {{ form.etf(size=4) }}<br>
+            {{ etf_form.etf.label }}<br>
+            {{ etf_form.etf(size=4) }}<br>
             {% for error in form.etf.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.submit() }}</p>
+        <p>{{ etf_form.submit() }}</p>
         <input id="prodId" name="prodId" type="hidden" value="xm234jq">
+    </form>
+
+    <form action="" method="post" name="etf_compute">
+        {{ compute_form.hidden_tag() }}
+        <p>{{ compute_form.submit() }}</p>
     </form>
 
     {% for etf in etfs %}

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import ETFForm
+from app.forms import ETFForm, ComputeForm
 import altair as alt
 import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
@@ -42,7 +42,7 @@ def fn(tickets):
     # return pd.DataFrame(data["5. adjusted close"])
     return pd.DataFrame({"date": list(data["5. adjusted close"].keys()), "price": [k for k in data["5. adjusted close"]]})
     # return data.to_json(orient="index")
-fn({'SDIV':100})
+# fn({'SDIV':100})
 
 
 
@@ -56,12 +56,14 @@ def index():
         if request.form.get('etf'+str(i), None):
             etfs = etfs + [request.form['etf'+str(i)]]
 
-    form = ETFForm()
-    if form.validate_on_submit():
+    etf_form = ETFForm()
+    compute_form = ComputeForm()
+    if etf_form.validate_on_submit():
         new_etf = request.form['etf']
         etfs = etfs + [new_etf]
 
-        # todo PROCESS NEW ETF
+
+    if compute_form.validate_on_submit():
         split_even = 100 / len(etfs)
         tickets = dict(zip(etfs, [split_even] * len(etfs)))
         print("ABOUT TO COMPUTE!")
@@ -69,10 +71,10 @@ def index():
         p = fn(tickets)
         # df_list = p
         print(df_list)
-        # todo PROCESS NEW ETF
 
-        return render_template('base.html', form=form, etfs=etfs)  # todo: make different?
-    return render_template('base.html', form=form, etfs=etfs)
+    return render_template('base.html', form=etf_form, etfs=etfs)
+
+        # return render_template('base.html', form=etf_form, etfs=etfs)  # todo: make different?
 
 @app.route("/line")
 def data_line():
