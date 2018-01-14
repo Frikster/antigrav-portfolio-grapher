@@ -10,6 +10,7 @@ list_data = [10, 20, 30, 20, 15, 30, 45]
 list_name = ['l'+str(x) for x in range(1,8,1)]
 df_list = pd.DataFrame({'data':list_data, 'name':list_name})
 
+# Tickers to test: VAB, VFV,
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
