@@ -19,7 +19,7 @@ def index():
     if form.validate_on_submit():
         new_etf = request.form['etf']
         etfs = etfs + [new_etf]
-        print(new_etf)
+        #todo PROCESS NEW ETF
         return render_template('base.html', form=form, etfs=etfs) #todo: make different?
     return render_template('base.html', form=form, etfs=etfs)
 
