@@ -8,5 +8,5 @@ class ETFForm(FlaskForm):
     submit_etf = SubmitField('Add')
 
 
-class ComputeForm(FlaskForm):
-    submit_compute = SubmitField("Compute")
+# class ComputeForm(FlaskForm):
+#     submit_compute = SubmitField("Compute")
