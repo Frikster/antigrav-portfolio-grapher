@@ -6,7 +6,6 @@ import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
 import matplotlib.pyplot as plt
 import pandas as pd
-from fn import fn, gn, hn
 
 WIDTH = 600
 HEIGHT = 300
@@ -19,7 +18,7 @@ df_list_old = pd.DataFrame({'data': list_data, 'name': list_name})
 
 
 
-'''def fn(tickets):
+def fn(tickets):
     if sum(list(tickets.values())) != 100:
         return None
 
@@ -46,7 +45,7 @@ df_list_old = pd.DataFrame({'data': list_data, 'name': list_name})
     df_list = pd.DataFrame(
         {"date": list(data["5. adjusted close"].keys()), "price": [k for k in data["5. adjusted close"]]})
     return pd.DataFrame({"date": list(data["5. adjusted close"].keys()), "price": [k for k in data["5. adjusted close"]]})
-    # return data.to_json(orient="index")'''
+    # return data.to_json(orient="index")
 fn({'GOOGL':100})
 
 
@@ -57,10 +56,15 @@ def index():
     initial_len = len(request.form)
     print("LEN REQUEST.FORM")
     print(len(request.form))
+    etf_form = ETFForm()
+
+    if etf_form.submit_etf.data and etf_form.validate():
+            prop = 100/(1+initial_len-3)
+
     for i in range(initial_len-3):
         if request.form.get('etf'+str(i), None):
             print("REACH HERE")
-            new_etf = [request.form['etf'+str(i)], 25, *gn(hn())]  # *gn(json_str)
+            new_etf = [request.form['etf'+str(i)], 100/(initial_len-3), 0, 0, 0, 0]
             etfs = etfs + [new_etf]
 
     # for i in range(initial_len-3):
@@ -71,17 +75,17 @@ def index():
     #         print(new_etf)
     #         etfs.append(new_etf)
 
-    etf_form = ETFForm()
     if etf_form.submit_etf.data and etf_form.validate():
         print("etf_form VALIDATED")
-        new_etf = [request.form['etf'], 25, *gn(hn())]
+        new_etf = [request.form['etf'], 100/(1+len(etfs)), 0, 0, 0, 0]
         etfs = etfs + [new_etf]
 
         print("ETFS[0]")
         print(etfs[0])
 
         tickers = [e[0] for e in etfs]
-        proportions = [p[1] for p in etfs]
+        # proportions = [p[1] for p in etfs]
+        proportions = [100/len(tickers) for p in etfs]
 
         tickets = dict(zip(tickers, proportions))
         print(tickets)
@@ -116,8 +120,6 @@ def data_line():
         y='price:Q',
     )
     return chart.to_json()
-
-
 
 # @app.route('/handle_data', methods=['POST'])
 # def handle_data():
